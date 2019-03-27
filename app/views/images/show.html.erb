@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @image.user.email %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @image.title %>
+</p>
+
+<p>
+  <strong>File:</strong>
+  <img style="width:100px" src="<%= @image.file %>"></img>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @image.created_at %>
+</p>
+
+<strong>List Comments:</strong> <br>
+<% @image.image_comments.each do |image_comment| %>
+  <%= image_comment.comment %> <br>
+<% end %>
+<br>
+
+<%= form_for(@image_comment) do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image_comment.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% @image_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <strong><%= f.label :comment %></strong><br>
+    <%= f.text_field :comment %>
+    <%= f.hidden_field :image_id, :value => @image.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>
