@@ -8,6 +8,15 @@
 </head>
 <body>
 
+<% if(user_signed_in?) %>
+<p>Hello <strong><%= current_user.email %></strong></p>
+<%= link_to "サインアウト", destroy_user_session_path, method: :delete %>
+<% else %>
+<%= link_to "サインイン", new_user_session_path, method: :get %>
+<%= link_to "ユーザー登録", new_user_registration_path, method: :get %>
+<% end %>
+<hr></hr>
+
 <%= yield %>
 
 </body>
